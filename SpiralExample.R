@@ -116,7 +116,7 @@ plotPrediction <- function(ind) {
 
 
 # Create plot
-# svg(filename="spiralplot.wmf",
+# svg(filename="spiralplot.svg",
 #     width=8,
 #     height=4,
 #     pointsize=12)
