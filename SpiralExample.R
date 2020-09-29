@@ -116,18 +116,18 @@ plotPrediction <- function(ind) {
 
 
 # Create plot
-# svg(filename="spiralplot.svg",
+# pdf(file="spiralplot.pdf",
 #     width=8,
-#     height=4,
+#     height=4.5,
 #     pointsize=12)
 par(mfrow=c(1,2))
 juliaEval("using Random; Random.seed!(11);")
-plot(spiral_cw[,1], spiral_cw[,2], type = "l", xlab = "x1", ylab = "x2")
+plot(spiral_cw[,1], spiral_cw[,2], type = "l", xlab = "x1", ylab = "x2", cex.axis = 0.8)
 title("Clockwise")
 plotPrediction(3)
 
 plot(spiral_ccw[,1], spiral_ccw[,2], type = "l", xlab = "x1", ylab = "x2",
-     xlim = c(-4, 10), ylim = c(-5, 10))
+     xlim = c(-4, 10), ylim = c(-5, 10), cex.axis = 0.8)
 title("Counter-clockwise")
 legend(x= "topright", bty = "o", legend =c("Sample", "Prediction"),
                          col=c(sampleColor, predColor), pch = 1, cex=0.8)
