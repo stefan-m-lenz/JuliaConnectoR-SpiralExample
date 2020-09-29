@@ -75,10 +75,11 @@ plotValVsEpoch <- function(epoch, val) {
 }
 
 # Start training (takes some time, the progress can be seen in the plot)
-SpiralExample$`train!`(model, spiraldata$samp_trajs, spiraldata$samp_ts,
-                       epochs = epochs, learningrate = 0.01,
-                       monitoring = plotValVsEpoch)
-
+system.time(
+   SpiralExample$`train!`(model, spiraldata$samp_trajs, spiraldata$samp_ts,
+                          epochs = epochs, learningrate = 0.01,
+                          monitoring = plotValVsEpoch)
+)
 
 # Due to the complexity of the model, saving and loading the model is
 # performed by saving via extracting the parameters and saving it with JLD
