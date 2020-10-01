@@ -1,3 +1,5 @@
+install.packages("JuliaConnectoR")
+
 library(JuliaConnectoR)
 
 # The results shown in the paper were obtained using Julia 1.4 with
