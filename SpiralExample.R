@@ -4,7 +4,13 @@ library(JuliaConnectoR)
 
 # The results shown in the paper were obtained using Julia 1.4 with
 # Flux 0.8.3, DiffEqFlux 0.7.0, DifferentialEquations 6.9.0 and Distributions 0.32.2.
-# The next few lines ensure that the correct Julia packages are installed.
+# The next few lines ensure that the correct Julia packages are installed by
+# employing a clearly defined Julia project environment
+# (see https://pkgdocs.julialang.org/v1.4/environments/).
+# Using both the exact Julia version and the exact packages in the Manifest.toml
+# permits an exact reproducibility.
+# As the random number generator may be subject change in future Julia versions,
+# the results may vary slightly when using newer Julia versions.
 juliaCall("cd", getwd())
 Pkg <- juliaImport("Pkg")
 # Use packages specified in Manifest.toml
