@@ -1,5 +1,5 @@
 import Pkg
-Pkg.activate("project_1_6")
+Pkg.activate(".")
 Pkg.instantiate()
 include("SpiralExample.jl")
 
