@@ -14,7 +14,7 @@ library(JuliaConnectoR)
 juliaCall("cd", getwd())
 Pkg <- juliaImport("Pkg")
 # Use packages specified in Manifest.toml
-Pkg$activate(".")
+Pkg$activate("project_1_6")
 # Check whether these packages are installed and install them if not.
 # (This may take some time.)
 Pkg$instantiate()
@@ -70,7 +70,7 @@ model <- SpiralExample$LatentTimeSeriesVAE(latent_dim = 4L,
 
 
 # Define a function which can plot the loss during training
-epochs <- 20
+epochs <- 1
 plotValVsEpoch <- function(epoch, val) {
    if (epoch == 1) {
       ymax <- max(val)
