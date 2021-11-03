@@ -120,7 +120,7 @@ plotPrediction <- function(ind) {
    predlength <- length(spiraldata$samp_ts) + 10
    sample <- juliaGet(spiraldata$samp_trajs[[ind]])
    predicted <- juliaGet(SpiralExample$predictspiral(model, sample,
-                                                     spiraldata$orig_ts[1:predlength]))
+                                                     spiraldata[["orig_ts"]][1:predlength]))
    predicted <- Reduce(rbind, predicted, init = c())
    samplemat <- Reduce(rbind, sample, init = c())
    points(x = samplemat[, 1], samplemat[,2], col = sampleColor)
