@@ -2,11 +2,11 @@ install.packages("JuliaConnectoR")
 
 library(JuliaConnectoR)
 
-# The results shown in the paper were obtained using Julia 1.4 with
-# Flux 0.8.3, DiffEqFlux 0.7.0, DifferentialEquations 6.9.0 and Distributions 0.32.2.
+# The results shown in the paper were obtained using Julia 1.6 with
+# Flux 0.12.7, DiffEqFlux 1.43.0, OrdinaryDiffEq 5.64.1 and Distributions 0.32.2.
 # The next few lines ensure that the correct Julia packages are installed by
 # employing a clearly defined Julia project environment
-# (see https://pkgdocs.julialang.org/v1.4/environments/).
+# (see https://pkgdocs.julialang.org/v1.6/environments/).
 # Using both the exact Julia version and the exact packages in the Manifest.toml
 # permits an exact reproducibility.
 # As the random number generator may be subject change in future Julia versions,
@@ -49,7 +49,6 @@ plot(spiral_ccw[,1], spiral_ccw[,2], type = "l")
 # Generate spiral samples
 juliaEval("using Random; Random.seed!(11);")
 spiraldata <- SpiralExample$spiral_samples(nspiral = 100L,
-                                           ntotal = 150L,
                                            nsample = 30L,
                                            start = 0,
                                            stop = 6*pi,
@@ -58,7 +57,7 @@ spiraldata <- SpiralExample$spiral_samples(nspiral = 100L,
 # This yields better results but needs, of course,
 # much more time to train.)
 
-juliaEval("using Random; Random.seed!(11);")
+juliaEval("using Random; Random.seed!(2);")
 
 # Define model architecture and initialize model
 model <- SpiralExample$LatentTimeSeriesVAE(latent_dim = 4L,
@@ -70,7 +69,7 @@ model <- SpiralExample$LatentTimeSeriesVAE(latent_dim = 4L,
 
 
 # Define a function which can plot the loss during training
-epochs <- 20
+epochs <- 50
 plotValVsEpoch <- function(epoch, val) {
    if (epoch == 1) {
       ymax <- max(val)
@@ -85,7 +84,7 @@ plotValVsEpoch <- function(epoch, val) {
 # Start training (takes some time, the progress can be seen in the plot)
 system.time(
    SpiralExample$`train!`(model, spiraldata$samp_trajs, spiraldata$samp_ts,
-                          epochs = epochs, learningrate = 0.01,
+                          epochs = epochs, learningrate = 0.005,
                           monitoring = plotValVsEpoch)
 )
 
@@ -116,7 +115,7 @@ plotPrediction <- function(ind) {
    predlength <- length(spiraldata$samp_ts) + 10
    sample <- juliaGet(spiraldata$samp_trajs[[ind]])
    predicted <- juliaGet(SpiralExample$predictspiral(model, sample,
-                                                     spiraldata$orig_ts[1:predlength]))
+                                                     spiraldata[["orig_ts"]][1:predlength]))
    predicted <- Reduce(rbind, predicted, init = c())
    samplemat <- Reduce(rbind, sample, init = c())
    points(x = samplemat[, 1], samplemat[,2], col = sampleColor)
@@ -130,7 +129,7 @@ plotPrediction <- function(ind) {
 #     height=4.5,
 #     pointsize=12)
 par(mfrow=c(1,2))
-juliaEval("using Random; Random.seed!(11);")
+juliaEval("using Random; Random.seed!(42);")
 plot(spiral_cw[,1], spiral_cw[,2], type = "l", xlab = "x1", ylab = "x2", cex.axis = 0.8)
 title("Clockwise")
 plotPrediction(3)
