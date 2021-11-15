@@ -112,8 +112,8 @@ predColor <- "blue"
 
 # Prediction
 plotPrediction <- function(ind) {
-   predlength <- length(spiraldata$samp_ts) + 10
-   sample <- juliaGet(spiraldata$samp_trajs[[ind]])
+   predlength <- length(spiraldata[["samp_ts"]]) + 10
+   sample <- juliaGet(spiraldata[["samp_trajs"]][[ind]])
    predicted <- juliaGet(SpiralExample$predictspiral(model, sample,
                                                      spiraldata[["orig_ts"]][1:predlength]))
    predicted <- Reduce(rbind, predicted, init = c())
