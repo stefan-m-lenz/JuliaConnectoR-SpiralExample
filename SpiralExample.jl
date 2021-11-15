@@ -4,7 +4,6 @@ module SpiralExample
 using Flux
 using DiffEqFlux
 using OrdinaryDiffEq
-using Plots
 using Random
 using Distributions
 
@@ -36,7 +35,7 @@ end
 
 function spiral_samples(;
         nspiral::Int = 1000, # no of spirals generated
-        nsample::Int = 100, # no of samples drawn from each spiral
+        nsample::Int = 100, # no of trajectory points drawn from each spiral
         start::Float64 = 0.0, # spiral starting phi value
         stop::Float64 = 6*pi, # spiral ending phi value
         a::Float64 = 0.0, # parameters defining shape of Archimedean spiral
@@ -49,7 +48,7 @@ function spiral_samples(;
     # - orig_ts: vector of length `ntotal` containing the timepoints for `orig_trajs`
     # - orig_ts: vector of length `nsample` containing the timepoints for `samp_trajs`
 
-    ntotal = 5*nsample # no of trajectory points for each spiral TODO
+    ntotal = 5*nsample # no of trajectory points for each spiral sample
 
     orig_traj_cc = spiral_counterclockwise(start = start, stop = stop, ntotal = ntotal, a = a, b = b)
     orig_traj_cw = spiral_clockwise(start = start, stop = stop, ntotal = ntotal, a = a, b = b)
@@ -84,7 +83,7 @@ function spiral_samples(;
 end
 
 
-struct LatentTimeSeriesVAE
+mutable struct LatentTimeSeriesVAE
     rnn
     latentODEfunc
     latentODEparams
@@ -116,6 +115,7 @@ end
 function loadmodel!(model, paramdict::Dict)
     Flux.loadparams!(model.rnn, paramdict["rnn"])
     Flux.loadparams!(model.latentODEfunc, paramdict["latentODEfunc"])
+    model.latentODEparams, model.latentODEfunc = Flux.destructure(model.latentODEfunc)
     Flux.loadparams!(model.decoder, paramdict["decoder"])
     model
 end
