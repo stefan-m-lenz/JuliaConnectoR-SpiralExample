@@ -105,22 +105,6 @@ function LatentTimeSeriesVAE(; latent_dim, obs_dim, rnn_nhidden, f_nhidden, dec_
 end
 
 
-function paramdict(model)
-    Dict("rnn" => Flux.params(model.rnn),
-        "latentODEfunc" => Flux.params(model.latentODEfunc),
-        "decoder" => Flux.params(model.decoder))
-end
-
-
-function loadmodel!(model, paramdict::Dict)
-    Flux.loadparams!(model.rnn, paramdict["rnn"])
-    Flux.loadparams!(model.latentODEfunc, paramdict["latentODEfunc"])
-    model.latentODEparams, model.latentODEfunc = Flux.destructure(model.latentODEfunc)
-    Flux.loadparams!(model.decoder, paramdict["decoder"])
-    model
-end
-
-
 latentz0(μ, logσ) = μ .+ exp.(logσ) .* randn(Float32)
 
 function n_ode(model, z0, t)

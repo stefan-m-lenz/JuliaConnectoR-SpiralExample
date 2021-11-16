@@ -13,5 +13,4 @@ This project works with Julia 1.4.
 On an standard desktop PC with an Intel i5-9500 CPU with 3 GHz, the execution of the complete script takes approximately 21 minutes, excluding the installation of the necessary packages.
 The training of the model takes approximately 20 minutes.
 The training progress can be watched in the plot that is drawn during the training.
-In the file [model.jld](model.jld), the resulting model is saved and can, e.g., also directly be loaded via the function `loadModel()` in [SpiralExample.R](SpiralExample.R).
 

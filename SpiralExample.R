@@ -82,7 +82,7 @@ plotValVsEpoch <- function(epoch, val) {
 }
 
 # Learning curve plot
-pdf(file="learningcurve.pdf",
+pdf(file="figure3.pdf",
     width=8,
     height=4,
     pointsize=12)
@@ -96,24 +96,6 @@ system.time(
 )
 
 dev.off()
-
-# Due to the complexity of the model, saving and loading the model is
-# performed by saving via extracting the parameters and saving it with JLD
-# When trying out constellations that train longer, it would also be possible
-# to save during the training via calling saveModel() during the monitoring callback.
-JLD <- juliaImport("JLD")
-saveModel <- function(file = "model.jld") {
-   JLD$save(file, "model",
-            SpiralExample$paramdict(model))
-}
-
-saveModel()
-
-# The model can be loaded at a later time
-loadModel <- function(file = "model.jld") {
-   juliaEval("using Flux") # to help JLD with recognizing the types
-   SpiralExample$`loadmodel!`(model, JLD$load(file, "model"))
-}
 
 
 sampleColor <- "green"
@@ -133,7 +115,7 @@ plotPrediction <- function(ind) {
 
 
 # Create plot
-pdf(file="spiralplot.pdf",
+pdf(file="figure2.pdf",
      width=8,
      height=4.5,
      pointsize=12)
