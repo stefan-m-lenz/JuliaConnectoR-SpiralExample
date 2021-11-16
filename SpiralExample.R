@@ -1,4 +1,4 @@
-install.packages("JuliaConnectoR")
+#install.packages("JuliaConnectoR")
 
 library(JuliaConnectoR)
 
@@ -81,12 +81,21 @@ plotValVsEpoch <- function(epoch, val) {
    }
 }
 
+# Learning curve plot
+pdf(file="learningcurve.pdf",
+    width=8,
+    height=4,
+    pointsize=12)
+
 # Start training (takes some time, the progress can be seen in the plot)
 system.time(
-   SpiralExample$`train!`(model, spiraldata$samp_trajs, spiraldata$samp_ts,
+   SpiralExample$`train!`(model,
+                          spiraldata[["samp_trajs"]], spiraldata[["samp_ts"]],
                           epochs = epochs, learningrate = 0.005,
                           monitoring = plotValVsEpoch)
 )
+
+dev.off()
 
 # Due to the complexity of the model, saving and loading the model is
 # performed by saving via extracting the parameters and saving it with JLD
@@ -124,10 +133,10 @@ plotPrediction <- function(ind) {
 
 
 # Create plot
-# pdf(file="spiralplot.pdf",
-#     width=8,
-#     height=4.5,
-#     pointsize=12)
+pdf(file="spiralplot.pdf",
+     width=8,
+     height=4.5,
+     pointsize=12)
 par(mfrow=c(1,2))
 juliaEval("using Random; Random.seed!(42);")
 plot(spiral_cw[,1], spiral_cw[,2], type = "l", xlab = "x1", ylab = "x2", cex.axis = 0.8)
@@ -141,4 +150,4 @@ legend(x= "topright", bty = "o", legend =c("Sample", "Prediction"),
                          col=c(sampleColor, predColor), pch = 1, cex=0.8)
 plotPrediction(1)
 par(mfrow=c(1,1))
-# dev.off()
+dev.off()
