@@ -7,8 +7,7 @@ library(JuliaConnectoR)
 # The next few lines ensure that the correct Julia packages are installed by
 # employing a clearly defined Julia project environment
 # (see https://pkgdocs.julialang.org/v1.6/environments/).
-# Using both the exact Julia version and the exact packages in the Manifest.toml
-# permits an exact reproducibility.
+# With the Manifest.toml it is possible to define the exact package configuration.
 # As the random number generator may be subject change in future Julia versions,
 # the results may vary slightly when using newer Julia versions.
 juliaCall("cd", getwd())
