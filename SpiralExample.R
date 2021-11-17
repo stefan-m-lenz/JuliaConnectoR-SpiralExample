@@ -1,4 +1,4 @@
-#install.packages("JuliaConnectoR")
+install.packages("JuliaConnectoR")
 
 library(JuliaConnectoR)
 
