@@ -11,6 +11,5 @@ These files were created by Julia while performing package operations in the act
 This project works with Julia 1.6.
 
 On an standard desktop PC with an AMD Ryzen 5 CPU with 3.6 GHz, the execution of the complete script takes approximately 11 minutes, excluding the installation of the necessary packages.
-The training of the model takes approximately 20 minutes.
 The training progress can be watched in the plot that is drawn during the training.
 
