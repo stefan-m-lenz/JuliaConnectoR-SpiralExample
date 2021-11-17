@@ -81,10 +81,10 @@ plotValVsEpoch <- function(epoch, val) {
 }
 
 # Learning curve plot
-pdf(file="figure3.pdf",
-    width=8,
-    height=4,
-    pointsize=12)
+#pdf(file="figure3.pdf",
+#    width=8,
+#    height=4,
+#    pointsize=12)
 
 # Start training (takes some time, the progress can be seen in the plot)
 system.time(
@@ -94,7 +94,7 @@ system.time(
                           monitoring = plotValVsEpoch)
 )
 
-dev.off()
+#dev.off()
 
 
 sampleColor <- "green"
@@ -113,11 +113,11 @@ plotPrediction <- function(ind) {
 }
 
 
-# Create plot
-pdf(file="figure2.pdf",
-     width=8,
-     height=4.5,
-     pointsize=12)
+# Create spiral plots
+#pdf(file="figure2.pdf",
+#     width=8,
+#     height=4.5,
+#     pointsize=12)
 par(mfrow=c(1,2))
 juliaEval("using Random; Random.seed!(42);")
 plot(spiral_cw[,1], spiral_cw[,2], type = "l", xlab = "x1", ylab = "x2", cex.axis = 0.8)
@@ -131,4 +131,4 @@ legend(x= "topright", bty = "o", legend =c("Sample", "Prediction"),
                          col=c(sampleColor, predColor), pch = 1, cex=0.8)
 plotPrediction(1)
 par(mfrow=c(1,1))
-dev.off()
+#dev.off()
