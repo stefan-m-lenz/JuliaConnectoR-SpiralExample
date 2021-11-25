@@ -83,7 +83,7 @@ function spiral_samples(;
 end
 
 
-mutable struct LatentTimeSeriesVAE
+struct LatentTimeSeriesVAE
     rnn
     latentODEfunc
     latentODEparams
@@ -96,7 +96,6 @@ function LatentTimeSeriesVAE(; latent_dim, obs_dim, rnn_nhidden, f_nhidden, dec_
     latentODEfunc = Chain(Dense(latent_dim, f_nhidden, Flux.elu),
                           Dense(f_nhidden, f_nhidden, Flux.elu),
                           Dense(f_nhidden, latent_dim))
-
     latentODEparams, re = Flux.destructure(latentODEfunc)
 
     decoder = Chain(Dense(latent_dim, dec_nhidden, Flux.relu),
